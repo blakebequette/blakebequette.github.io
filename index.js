@@ -1,16 +1,16 @@
 const projectList = [
-    {
-        projectName: "Coffee Clicker",
-        description: "Vanilla DOM clicking game",
-        thumbnail: "./projects/coffeeClicker/projectThumbnail.png",
-        entry: "/projects/coffeeClicker/index.html"
-    },
-    {
-        projectName: "Whack-A-Mole",
-        description: "Vanilla DOM whack-a-mole game with some event listener improvisation",
-        thumbnail: "./projects/whackAMole/projectThumbnail.png",
-        entry: "/projects/whackAMole/index.html"
-    },
+    // {
+    //     projectName: "Coffee Clicker",
+    //     description: "Vanilla DOM clicking game",
+    //     thumbnail: "./projects/coffeeClicker/projectThumbnail.png",
+    //     entry: "/projects/coffeeClicker/index.html"
+    // },
+    // {
+    //     projectName: "Whack-A-Mole",
+    //     description: "Vanilla DOM whack-a-mole game with some event listener improvisation",
+    //     thumbnail: "./projects/whackAMole/projectThumbnail.png",
+    //     entry: "/projects/whackAMole/index.html"
+    // },
 ]
 
 const insertionNode = document.getElementById("tile-insertion-point")
