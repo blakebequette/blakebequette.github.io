@@ -2,13 +2,13 @@ const projectList = [
     {
         projectName: "Coffee Clicker",
         description: "Vanilla DOM clicking game",
-        thumbnail: "./projects/coffeeClicker/projectThumbnail.png",
+        thumbnail: "./thumbnails/coffeeClicker.png",
         entry: "/projects/coffeeClicker/index.html"
     },
     {
         projectName: "Whack-A-Mole",
         description: "Vanilla DOM whack-a-mole game with some event listener improvisation",
-        thumbnail: "./projects/whackAMole/projectThumbnail.png",
+        thumbnail: "./thumbnails/whackAMole.png",
         entry: "/projects/whackAMole/index.html"
     },
 ]
