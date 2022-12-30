@@ -1,40 +1,16 @@
 const projectList = [
     {
-        projectName: "A",
-        description: "A first project",
-        thumbnail: "./projects/projA/A.jpg",
-        entry: "./projects/projA/index.html"
+        projectName: "Coffee Clicker",
+        description: "Vanilla DOM clicking game",
+        thumbnail: "./projects/coffeeClicker/projectThumbnail.png",
+        entry: "/projects/coffeeClicker/index.html"
     },
     {
-        projectName: "B",
-        description: "Another project",
-        thumbnail: "./projects/projB/B.jpg",
-        entry: "./projects/projB/index.html"
+        projectName: "Whack-A-Mole",
+        description: "Vanilla DOM whack-a-mole game with some event listener improvisation",
+        thumbnail: "./projects/whackAMole/projectThumbnail.png",
+        entry: "/projects/whackAMole/index.html"
     },
-    {
-        projectName: "A",
-        description: "A first project",
-        thumbnail: "./projects/projA/A.jpg",
-        entry: "./projects/projA/index.html"
-    },
-    {
-        projectName: "B",
-        description: "Another project",
-        thumbnail: "./projects/projB/B.jpg",
-        entry: "./projects/projB/index.html"
-    },
-    {
-        projectName: "A",
-        description: "A first project",
-        thumbnail: "./projects/projA/A.jpg",
-        entry: "./projects/projA/index.html"
-    },
-    {
-        projectName: "B",
-        description: "Another project",
-        thumbnail: "./projects/projB/B.jpg",
-        entry: "./projects/projB/index.html"
-    }
 ]
 
 const insertionNode = document.getElementById("tile-insertion-point")
@@ -43,9 +19,14 @@ function project2TileNode(project){
     let newTile = document.createElement("div")
     newTile.innerText = project.projectName
     newTile.className = "tile flxd"
-    newTile.innerHTML = `<h4 class="project-title">&#20${project.projectName}</h4>
-        <p class="project-description">${project.description}</p>
-        <img src='${project.thumbnail}' alt='' class='thumbnail' />`
+    newTile.innerHTML = `
+        <img src='${project.thumbnail}' alt='' class='thumbnail' />
+        <h4 class="project-title">${project.projectName}</h4>
+        <p class="project-description">${project.description}</p>`
+    newTile.addEventListener("click", ()=> {
+        console.log(window.location)
+        window.location = window.location + `${project.entry}`
+    })
     return newTile
 }
 
