@@ -1,18 +1,18 @@
 const projectList = [
     {
         projectName: "Coffee Clicker",
-        description: "Vanilla DOM clicking game",
-        thumbnail: "./thumbnails/coffeeClicker.png",
+        description: "Vanilla DOM brute force clicking game",
+        thumbnail: "https://i.ibb.co/4WfwMj6/coffee-Clicker.png",
         entry: "/projects/coffeeClicker/index.html"
     },
     {
         projectName: "Whack-A-Mole",
         description: "Vanilla DOM whack-a-mole game with some event listener improvisation",
-        thumbnail: "./thumbnails/whackAMole.png",
+        thumbnail: "https://i.ibb.co/k8RVDsR/whack-AMole.png",
         entry: "/projects/whackAMole/index.html"
     },
 ]
-
+// <a href="https://ibb.co/LSPD6CL"><img src="https://i.ibb.co/4WfwMj6/coffee-Clicker.png" alt="coffee-Clicker" border="0" /></a>
 const insertionNode = document.getElementById("tile-insertion-point")
 
 function project2TileNode(project){
