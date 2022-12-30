@@ -15,6 +15,7 @@ html, body {
     font-family:var(--primary-font);
     background-color: var(--primary);
     color: var(--fourth);
+    text-align: center;
 }
 
 h1 {
@@ -25,7 +26,6 @@ h1 {
 }
 
 h2{
-    margin-left: 30px;
     margin-top: 100px;
     font-family: var(--title-font);
     color: var(--third)
