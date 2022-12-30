@@ -31,12 +31,17 @@ h2{
     color: var(--third)
 }
 
+h4 {
+    margin-top: 5px;
+}
+
 ul {
     margin: auto;
 }
 .flx {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .flxd {
