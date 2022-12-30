@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Coffee Clicker</title>
+</head>
+
+<body>
+  <div class="column-container">
+    <div class="column">
+      <div class="container left">
+        <div class="counter-container">Coffee: <span id="coffee_counter">0</span></div>
+        <div class="cps-container"><span id="cps">0</span> coffee/second</div>
+        <br>
+        <div class="click-power-container"><span id="click-power">1</span> coffee/click</div>
+        <div id="big_coffee">☕️</div>
+        <p id="print-space"></p>
+        <div class="upgrade-title">Upgrades: </div>
+        <div class="upgrade-container" id="upgrade-container"> 
+          <button type="button" class="upgrade-btn" id="coffee-grinder">Coffee Grinder - Double a random machine's CPS <br><span id="cost-grinder"></span></button>
+          <button type="button" class="upgrade-btn" id="extra-cursors">Increase Click Power (1.2x): <br><span id="cost-extraCursor"></span></button>
+          <button type="button" class="upgrade-btn" id="caffeine-cursor">Caffeine Prestige - Reset the Game with Better Start:<br><span id="cost-caffeinatedCursor"></span></button>
+        </div>
+        <div id="reset-container">
+          <button type="button" class="reset-btn" id="reset-button">Reset The Game</button>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="column-header">Coffee Producers</div>
+      <div class="container right" id="producer_container">
+      </div>
+    </div>
+    <script type="text/javascript" src="data.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
