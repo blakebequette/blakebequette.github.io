@@ -11,6 +11,12 @@ const projectList = [
         thumbnail: "https://i.ibb.co/k8RVDsR/whack-AMole.png",
         entry: "/projects/whackAMole/index.html"
     },
+    {
+        projectName: "Around the World: Leaflet",
+        description: "Mapping the first circumnavigation via plane, using React and Leaflet",
+        thumbnail: "https://i.ibb.co/Pj0MgF6/leaflet-pic.png",
+        entry: "projects/mapfun/index.html"
+    }
 ]
 // <a href="https://ibb.co/LSPD6CL"><img src="https://i.ibb.co/4WfwMj6/coffee-Clicker.png" alt="coffee-Clicker" border="0" /></a>
 const insertionNode = document.getElementById("tile-insertion-point")

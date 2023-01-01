@@ -86,7 +86,9 @@ ul {
 
 .tech-title {
     background-color: var(--secondary);
-    color: var(--third)
+    color: var(--third);
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 p.contact-info {
