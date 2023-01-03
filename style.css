@@ -1,12 +1,63 @@
 
 :root {
-    --title-font: "Silkscreen";
+    /* Videogameish BLUE */
+    /* --title-font: "Silkscreen";
     --primary-font:"Poppins", sans-serif;
     --primary:#74a892;
     --secondary:  #008585;
     --third:#fbf2c4;
     --fourth: #832607;
-    --fifth: #e5c185;
+    --fifth: #e5c185; */
+
+    /* GOTHIC */
+    /* --title-font: 'Cinzel';
+    --primary-font: "Poppins";
+    --primary: black;
+    --secondary: #737373;
+    --third: white;
+    --fourth: white;
+    --fifth: black; */
+
+    /* CLOUDS */
+    /* --title-font: "Saira";
+    --primary-font: "Poppins";
+    --primary: white;
+    --secondary: white;
+    --third: lightblue;
+    --fourth: grey;
+    --fifth: black;
+    --borders: black; */
+
+    /* TEAL */
+    --title-font: "Cinzel";
+    --primary-font: "Poppins";
+    --primary: #263739;
+    --secondary: #2c4c64;
+    --third: white;
+    --fourth: #a5bdc1;
+    --borders: black;
+
+    /* BLACK GREEN TAN*/
+    /* --title-font: "Saira";
+    --primary-font: "Poppins";
+    --primary: #100C0D;
+    --secondary: #013328;
+    --third: #CC8B65;
+    --fourth: #E3DCD2;
+    --borders: black; */
+
+    /* Unknown */
+    /* --title-font: "Saira";
+    --primary-font: "Poppins";
+    --primary:grey;
+    --secondary:  white;
+    --third:black;
+    
+    --fourth: black;
+    --borders: black; */
+
+    
+
 }
 
 html, body {
@@ -57,9 +108,11 @@ ul {
     max-width: 280px;
     height: 451px;
     max-height: 451px;
-    border: black solid 2px;
-    margin: 5px;
+    border: var(--borders) solid 2px;
+    margin:7px;
+    /* border-radius: 10px; */
     background-color: var(--secondary);
+    /* box-shadow: 10px 5px 4px var(--third); */
 }
 
 .tile:hover {
@@ -73,14 +126,14 @@ ul {
 }
 
 .project-description {
-    color: var(--fifth);
+    color: var(--fourth);
     padding: 10px;
 }
 
 .thumbnail {
     overflow: hidden;
     width: 280px;
-    border-bottom: 2px black solid;
+    border-bottom: 2px var(--borders) solid;
 }
 
 .tech > * {
