@@ -53,10 +53,13 @@ ul {
 }
 .tile {
     text-align: center;
-    max-width: 300px;
+    width: 280px;
+    max-width: 280px;
+    height: 451px;
+    max-height: 451px;
     border: black solid 2px;
     margin: 5px;
-    background-color: var(--secondary)
+    background-color: var(--secondary);
 }
 
 .tile:hover {
@@ -71,11 +74,12 @@ ul {
 
 .project-description {
     color: var(--fifth);
+    padding: 10px;
 }
 
 .thumbnail {
     overflow: hidden;
-    width: 300px;
+    width: 280px;
     border-bottom: 2px black solid;
 }
 
@@ -96,4 +100,16 @@ p.contact-info {
 }
 #tile-insertion-point {
     margin: 20px;
+}
+
+.golden-ratio{
+    width: 200px;
+    height: 320px;
+   
+    margin: 2px auto;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative
 }
