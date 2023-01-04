@@ -22,8 +22,15 @@ const projectList = [
         description: "Campus manager application. Front end: React & Redux, Back end: Express + Postgres",
         thumbnail: "https://i.postimg.cc/MTJ72p9q/campus-Manager.png",
         entry: "https://youtu.be/csAtX-6leZw"
+    },
+    {
+        projectName: "JSON Viewer",
+        description: "Drag & Drop a .json file to inspect via an interactive outline. Made with React.",
+        thumbnail: "https://i.ibb.co/yPxC3jX/json-Viewer.png",
+        entry: "projects/jsonViewer/index.html"
     }
 ]
+//<a href="https://ibb.co/1Q4NSWL"><img src="https://i.ibb.co/yPxC3jX/json-Viewer.png" alt="json-Viewer" border="0"></a>
 // <a href="https://ibb.co/LSPD6CL"><img src="https://i.ibb.co/4WfwMj6/coffee-Clicker.png" alt="coffee-Clicker" border="0" /></a>
 const insertionNode = document.getElementById("tile-insertion-point")
 

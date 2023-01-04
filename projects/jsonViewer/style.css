@@ -1,0 +1,90 @@
+html {
+    margin: 0px;
+    
+    background: linear-gradient(white,white) no-repeat center center fixed;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+
+body {
+    margin: 0px;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Galada';
+    text-decoration: underline;
+}
+
+form {
+    margin: 50px 100px;
+}
+
+button {
+    display: block;
+}
+
+p {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.submit-btn {
+    width: 20%;
+}
+.goal-form {
+    background-color: navy;
+    height: 300px;
+    width: auto;
+}
+
+.lvl-0 {
+    margin-left: 40px;
+}
+
+.lvl-1 {
+    margin-left: 60px;
+}
+
+.lvl-2 {
+    margin-left: 80px;
+}
+
+.clickable:hover {
+    filter: brightness(150%);
+    color: red;
+}
+
+.simple-tag {
+    position: relative;
+    right: -20px;
+}
+
+.flx-horizontal {
+    display: flex;
+}
+
+.flxd{
+    flex: 1 1 45%;
+    margin: 0px 50px;
+    padding: 10px;
+
+}
+#dz{
+    background-color: slategray;
+    z-index: 1;
+    height: 80vh;
+    line-height: 17;
+    text-align: center;
+    border: dotted 5px black;
+    border-radius: 10px;
+    color: white;
+    font-size: 2rem;
+
+}
+
+#dz:hover {
+    background-color: silver;
+}
