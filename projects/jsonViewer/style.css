@@ -14,7 +14,7 @@ body {
 
 h1 {
     text-align: center;
-    font-family: 'Galada';
+    font-family: 'Bungee';
     text-decoration: underline;
 }
 
@@ -52,6 +52,22 @@ p {
     margin-left: 80px;
 }
 
+.lvl-3 {
+    margin-left: 100px;
+}
+
+.lvl-4 {
+    margin-left: 120px;
+}
+
+.lvl-5 {
+    margin-left: 140px;
+}
+
+.lvl-6 {
+    margin-left: 160px;
+}
+
 .clickable:hover {
     filter: brightness(150%);
     color: red;
@@ -72,11 +88,25 @@ p {
     padding: 10px;
 
 }
+.flx-vert {
+    display: flex;
+    flex-direction: column;
+}
+
+#dz-container {
+    flex: 1 1 40%;
+    height: 400px;
+    width: 400px;
+    position: fixed;
+    right: 0px;
+    top: 120px;
+
+}
 #dz{
     background-color: slategray;
     z-index: 1;
     height: 80vh;
-    line-height: 17;
+    line-height: 1;
     text-align: center;
     border: dotted 5px black;
     border-radius: 10px;
@@ -87,4 +117,13 @@ p {
 
 #dz:hover {
     background-color: silver;
+}
+
+#random-user-btn {
+    height: 50px;
+    width: 100%;
+    background-color: orange;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 1.2rem;;
 }
