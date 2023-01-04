@@ -82,6 +82,10 @@ h2{
     color: var(--third)
 }
 
+h3 {
+    font-family: var(--title-font);
+    color: var(--third);
+}
 h4 {
     margin-top: 5px;
 }
@@ -133,6 +137,7 @@ ul {
 .thumbnail {
     overflow: hidden;
     width: 280px;
+    height: 200px;
     border-bottom: 2px var(--borders) solid;
 }
 
