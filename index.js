@@ -18,8 +18,8 @@ const projectList = [
         entry: "projects/mapfun/index.html"
     },
     {
-        projectName: "Campus Manager - CRUD App",
-        description: "Campus manager application. Front end: React & Redux, Back end: Express + Postgres",
+        projectName: "Campus Manager",
+        description: "CRUD application. Front end: React & Redux, Back end: Express + Postgres",
         thumbnail: "https://i.postimg.cc/MTJ72p9q/campus-Manager.png",
         entry: "https://youtu.be/csAtX-6leZw"
     },

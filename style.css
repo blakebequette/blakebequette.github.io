@@ -117,9 +117,9 @@ ul {
     height: 451px;
     max-height: 451px;
     border: var(--borders) solid 2px;
-    margin:7px;
+    margin: 12px;
     /* border-radius: 10px; */
-    background-color: var(--fourth);
+    background-color: var(--secondary);
     box-shadow: 7px 3px 4px #3c575a;
 }
 
@@ -129,13 +129,13 @@ ul {
 }
 
 .project-title {
-    color: black;
+    color: var(--third);
     /* var(--third); */
     font-size: 1.25rem;
 }
 
 .project-description {
-    color: black;
+    color: var(--fourth);
     /* var(--fourth); */
     padding: 10px;
 }
