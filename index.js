@@ -39,7 +39,7 @@ function project2TileNode(project){
         if (project.projectName === "Campus Manager - CRUD App") {
             window.location = project.entry
         } else {
-            window.location = window.location + `${project.entry}`
+            window.location = `${project.entry}`
         }
     })
     return newTile
