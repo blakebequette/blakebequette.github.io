@@ -119,8 +119,8 @@ ul {
     border: var(--borders) solid 2px;
     margin:7px;
     /* border-radius: 10px; */
-    background-color: var(--secondary);
-    /* box-shadow: 10px 5px 4px var(--third); */
+    background-color: var(--fourth);
+    box-shadow: 7px 3px 4px #3c575a;
 }
 
 .tile:hover {
@@ -129,12 +129,14 @@ ul {
 }
 
 .project-title {
-    color: var(--third);
+    color: black;
+    /* var(--third); */
     font-size: 1.25rem;
 }
 
 .project-description {
-    color: var(--fourth);
+    color: black;
+    /* var(--fourth); */
     padding: 10px;
 }
 
@@ -151,7 +153,7 @@ ul {
 }
 
 .tech-title {
-    color: var(--third);
+    color:  var(--third); 
     /* background-color: black;
     padding-left: 10px;
     padding-right: 10px; */
