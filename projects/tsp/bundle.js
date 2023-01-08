@@ -160,7 +160,7 @@ var TSPBrain = function TSPBrain() {
     className: ""
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", {
     id: "active-algo"
-  }, solution.name, " Soltion"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_TSPMap__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, solution.name, " Solution"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_TSPMap__WEBPACK_IMPORTED_MODULE_1__["default"], {
     className: "",
     solution: solution.coords,
     id: "map-container",
