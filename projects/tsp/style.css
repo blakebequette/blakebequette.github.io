@@ -1,0 +1,132 @@
+:root {
+    /* --primary: #838469;
+    --secondary:#476066;
+    --tertiary: #eadaa0;
+    --dark-accent: #ab5852; 
+    --med-accent: #d69e49; */
+}
+
+body, html {
+    /* height: 100%; */
+    margin: 0px;
+}
+
+div.wrap {
+    height:100%; 
+    overflow:hidden;
+}
+
+body {
+    overflow: hidden; 
+}
+
+h2 {
+    color: black;
+    font-family: sans-serif;
+}
+
+
+table {
+    z-index: 10;
+    align-items: center;
+    text-align: center;
+    margin: 10px auto;
+
+}
+
+th, td{
+    border: 1px black solid;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+
+tr:nth-child(even) {
+    background-color: rgba(223, 223, 223, 0.7);
+  }
+  
+th:nth-child(even),td:nth-child(even) {
+background-color: rgba(223, 223, 223, 0.7);
+}
+
+td.visited {
+    background-color: black;
+    color: white;
+}
+table.distance-table {
+    font-size: 8px;
+    position: absolute;
+    bottom: 1%;
+    left: 45px;
+    z-index: 100;
+    outline-color: rgba(150, 1,2, 0.1);
+    pointer-events: none;
+}
+
+h2#total-distance {
+    color: black;
+    z-index: 3;
+    position: fixed;
+    top: 10px;
+    left: 75%;
+}
+
+
+h2#ideal-score {
+    color: black;
+    z-index: 3;
+    position: fixed;
+    top: 45px;;
+    left: 75%;
+}
+
+h2#total-score {
+    color: black;
+    z-index: 3;
+    position: fixed;
+    top: 80px;;
+    left: 88%;
+    background-color: white;
+}
+
+#map-container {
+    height: 120vh;
+    width: 100%;
+    z-index: 0;
+}
+
+#solution-container {
+    background-color: black;
+    z-index: 2;
+    position: fixed;
+    right: 5px;
+    top: 65%;
+    width: 100px;
+    height: 100px;;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#solution-container > button {
+    display: block;
+    margin: 5px auto;
+}
+
+
+
+button#distance-table-toggle {
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    right: 10%;
+    bottom: 2.5%;
+    color:white;
+
+}
+
+#active-algo{
+    position: absolute;
+    z-index: 5;
+    top: 10px;
+    right: 35%;
+}

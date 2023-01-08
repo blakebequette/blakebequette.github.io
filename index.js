@@ -18,6 +18,12 @@ const projectList = [
         entry: "projects/mapfun/index.html"
     },
     {
+        projectName: "Traveling Salesman",
+        description: "Visualizing the TS Problem using React-Leaflet",
+        thumbnail: "https://i.ibb.co/rH2Z9LR/tspBeq.png",
+        entry: "projects/tsp/index.html"
+    },
+    {
         projectName: "Campus Manager",
         description: "CRUD application. Front end: React & Redux, Back end: Express + Postgres",
         thumbnail: "https://i.postimg.cc/MTJ72p9q/campus-Manager.png",
