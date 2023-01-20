@@ -1,17 +1,51 @@
-:root {
-    /* --primary: #838469;
-    --secondary:#476066;
-    --tertiary: #eadaa0;
-    --dark-accent: #ab5852; 
-    --med-accent: #d69e49; */
+:root{
+    --dark: black;
+    --dark-two: darkgrey; 
+    --accent: blue;
+    --light-two: silver;
+    --light: white;
+    --header-font: serif;
+    --secondary-font: sans-serif;
 }
 
 body, html {
     /* height: 100%; */
     margin: 0px;
+    background-color:#333333;
+    overflow: hidden;
 }
 
-div.wrap {
+#map{
+    height: 120vh;
+    z-index: 0;
+    background-color:#333333;
+
+}
+
+#legend{
+    z-index: 5;
+    position: absolute;
+    margin-top: 5px;
+}
+
+#keys {
+    width: 500px;
+    position: absolute;
+    left: 50px;
+}
+
+div, h2, button{
+    background-color: transparent;
+}
+
+.even{
+
+}
+
+.odd {
+
+}
+/* div.wrap {
     height:100%; 
     overflow:hidden;
 }
@@ -90,7 +124,7 @@ h2#total-score {
 }
 
 #map-container {
-    height: 120vh;
+    height: 500px;
     width: 100%;
     z-index: 0;
 }
@@ -129,4 +163,4 @@ button#distance-table-toggle {
     z-index: 5;
     top: 10px;
     right: 40%;
-}
+} */
