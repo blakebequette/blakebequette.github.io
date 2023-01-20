@@ -20,7 +20,7 @@ const projectList = [
     {
         projectName: "Traveling Salesman",
         description: "Visualizing the TS Problem using React-Leaflet",
-        thumbnail: "https://i.ibb.co/rH2Z9LR/tspBeq.png",
+        thumbnail: "https://i.ibb.co/FhGSx2d/tsp-v2.png",
         entry: "projects/tsp/index.html"
     },
     {
