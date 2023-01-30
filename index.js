@@ -6,12 +6,6 @@ const projectList = [
         entry: "/projects/coffeeClicker/index.html"
     },
     {
-        projectName: "Whack-A-Mole",
-        description: "Vanilla DOM whack-a-mole game with some event listener improvisation",
-        thumbnail: "https://i.postimg.cc/t4gD2JMc/whack-AMole.png",
-        entry: "/projects/whackAMole/index.html"
-    },
-    {
         projectName: "Around the World: Leaflet",
         description: "Mapping the first circumnavigation via plane, using React and Leaflet",
         thumbnail: "https://i.ibb.co/Pj0MgF6/leaflet-pic.png",
@@ -34,8 +28,15 @@ const projectList = [
         description: "Drag & Drop a .json file to inspect via an interactive outline. Made with React.",
         thumbnail: "https://i.ibb.co/yPxC3jX/json-Viewer.png",
         entry: "projects/jsonViewer/index.html"
+    },
+    {
+        projectName: "Yard Sale",
+        description: "An Online Store for Ski Gear. Made with the PERN stack.",
+        thumbnail: "https://i.ibb.co/0GM0sK9/shop.png",
+        entry: "https://skishop.onrender.com/"
     }
 ]
+//<a href="https://ibb.co/yQyz4pk"><img src="https://i.ibb.co/0GM0sK9/shop.png" alt="shop" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>shareable photos</a><br />
 //<a href="https://ibb.co/1Q4NSWL"><img src="https://i.ibb.co/yPxC3jX/json-Viewer.png" alt="json-Viewer" border="0"></a>
 // <a href="https://ibb.co/LSPD6CL"><img src="https://i.ibb.co/4WfwMj6/coffee-Clicker.png" alt="coffee-Clicker" border="0" /></a>
 const insertionNode = document.getElementById("tile-insertion-point")
