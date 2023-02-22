@@ -34,8 +34,15 @@ const projectList = [
         description: "An Online Store for Ski Gear. Made with the PERN stack.",
         thumbnail: "https://i.ibb.co/0GM0sK9/shop.png",
         entry: "https://skishop.onrender.com/"
+    },
+    {
+        projectName: "Atocha Translate",
+        description: "A translation and language-learning mobile app. Built using React-Native, Expo, Docker, and Google Cloud Platform.",
+        thumbnail: "https://i.ibb.co/rF8c2SH/Screen-Shot-2023-02-22-at-11-07-33-AM.png",
+        entry: "https://www.youtube.com/watch?v=YCo-CrSmDi0"
     }
 ]
+// <a href="https://ibb.co/BcWr2xB"><img src="https://i.ibb.co/rF8c2SH/Screen-Shot-2023-02-22-at-11-07-33-AM.png" alt="Screen-Shot-2023-02-22-at-11-07-33-AM" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>upload pic</a><br />
 //<a href="https://ibb.co/yQyz4pk"><img src="https://i.ibb.co/0GM0sK9/shop.png" alt="shop" border="0"></a><br /><a target='_blank' href='https://imgbb.com/'>shareable photos</a><br />
 //<a href="https://ibb.co/1Q4NSWL"><img src="https://i.ibb.co/yPxC3jX/json-Viewer.png" alt="json-Viewer" border="0"></a>
 // <a href="https://ibb.co/LSPD6CL"><img src="https://i.ibb.co/4WfwMj6/coffee-Clicker.png" alt="coffee-Clicker" border="0" /></a>
