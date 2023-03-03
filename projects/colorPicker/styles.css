@@ -1,0 +1,21 @@
+:root{
+    --dark: black;
+    --dark-two: darkgrey; 
+    --accent: blue;
+    --light-two: silver;
+    --light: white;
+    --header-font: serif;
+    --secondary-font: sans-serif;
+}
+
+html, body {
+    margin: 0px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.hoverpointer:hover {
+    cursor:pointer;
+}
