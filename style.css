@@ -1,183 +1,480 @@
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+/* ── Palette ──
+ * Greyscale base, blue accent only where it counts.
+ */
 :root {
-    /* Videogameish BLUE */
-    /* --title-font: "Silkscreen";
-    --primary-font:"Poppins", sans-serif;
-    --primary:#74a892;
-    --secondary:  #008585;
-    --third:#fbf2c4;
-    --fourth: #832607;
-    --fifth: #e5c185; */
-
-    /* GOTHIC */
-    /* --title-font: 'Cinzel';
-    --primary-font: "Poppins";
-    --primary: black;
-    --secondary: #737373;
-    --third: white;
-    --fourth: white;
-    --fifth: black; */
-
-    /* CLOUDS */
-    /* --title-font: "Saira";
-    --primary-font: "Poppins";
-    --primary: white;
-    --secondary: white;
-    --third: lightblue;
-    --fourth: grey;
-    --fifth: black;
-    --borders: black; */
-
-    /* TEAL */
-    --title-font: "Cinzel";
-    --primary-font: "Poppins";
-    --primary: #263739;
-    --secondary: rgb(61, 61, 61); 
-    /* #2c4c64; */
-    --third: white;
-    --fourth: #a5bdc1;
-    --borders: black;
-    --accent: hsl(189, 7%, 19%);
-
-    /* BLACK GREEN TAN*/
-    /* --title-font: "Saira";
-    --primary-font: "Poppins";
-    --primary: #100C0D;
-    --secondary: #013328;
-    --third: #CC8B65;
-    --fourth: #E3DCD2;
-    --borders: black; */
-
-    /* Unknown */
-    /* --title-font: "Saira";
-    --primary-font: "Poppins";
-    --primary:grey;
-    --secondary:  white;
-    --third:black;
-    
-    --fourth: black;
-    --borders: black; */
-
-    
-
+  --bg:      #07090e;
+  --surface: #131315;   /* neutral dark grey, no blue tint */
+  --border:  #27272a;   /* medium dark grey                */
+  --text:    #e4e4e7;   /* neutral near-white              */
+  --muted:   #71717a;   /* medium grey                     */
+  --accent:       #3282B8;   /* primary blue accent             */
+  --accent-light: #5aaad8;   /* lighter blue — hover states     */
+  --accent-dim:   #4a88b8;   /* muted blue — secondary labels   */
+  --sky:          #BBE1FA;   /* pale blue — tree tips           */
+  --font:    'Inter', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+  --max-w:   820px;
 }
 
-html, body {
-    margin: 0px;
-    padding: 0px;
-    font-family:var(--primary-font);
-    background-color: var(--primary);
-    /* background-image: linear-gradient(var(--primary), var(--accent)); */
-    color: var(--fourth);
-    text-align: center;
+/* ── Scrollbar ── */
+::-webkit-scrollbar              { width: 5px; }
+::-webkit-scrollbar-track        { background: var(--bg); }
+::-webkit-scrollbar-thumb        { background: var(--accent); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover  { background: var(--accent-light); }
+* { scrollbar-width: thin; scrollbar-color: var(--accent) var(--bg); }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1 {
-    text-align: center;
-    font-family: var(--title-font);
-    color: var(--third);
-    font-size: 3rem;
+/* ── Background: topo.svg scrolling slowly upward (drone flyover) ─────────
+ * The SVG tile is 1440×1440 with a vertically-periodic height field so
+ * background-repeat: repeat-y loops it seamlessly.
+ * Animating background-position from 0 → -100vw scrolls exactly one tile.
+ */
+@keyframes topo-scroll {
+  from { background-position-y: 0; }
+  to   { background-position-y: 500vw; }   /* one full tile height (SVG is 5× its width) */
 }
 
-h2{
-    margin-top: 100px;
-    font-family: var(--title-font);
-    color: var(--third)
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('topo.svg');
+  background-size: 100vw auto;   /* scale to full viewport width, proportional height */
+  background-repeat: repeat-y;
+  background-position-x: 0;
+  animation: topo-scroll 800s linear infinite;
+  pointer-events: none;
+  z-index: -2;
 }
 
-h3 {
-    font-family: var(--primary-font);
-    color: var(--third);
-}
-h4 {
-    margin-top: 5px;
-}
-
-ul {
-    margin: auto;
-}
-.flx {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+/* Soft ambient glow blobs + edge vignette sit above the topo tile */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60vw 50vh at 15%  25%, rgba(50, 130, 184, 0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 45vw 55vh at 85%  70%, rgba(50, 130, 184, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 85%  85% at 50%  50%, transparent 45%, rgba(7,9,14,0.72) 100%);
+  pointer-events: none;
+  z-index: -1;
 }
 
-.flxd {
-    flex: 1 1 25%;
+a { color: inherit; text-decoration: none; }
+
+/* ── Hero — full-bleed centering shell ── */
+#hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  position: relative;
+  overflow: hidden;
+  /* Override the generic `section` rule */
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
 
-.c {
-    text-align: center;
-}
-.tile {
-    text-align: center;
-    width: 280px;
-    max-width: 280px;
-    height: 451px;
-    max-height: 451px;
-    border: var(--borders) solid 2px;
-    margin: 12px;
-    /* border-radius: 10px; */
-    background-color: var(--secondary);
-    box-shadow: 7px 3px 4px rgb(17, 17, 17);
+/* Vignette */
+#hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.tile:hover {
-    filter: brightness(80%);
-    cursor: pointer;
+/* Tight centered pair */
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+  padding: clamp(2rem, 5vh, 4rem) 0;
 }
 
-.project-title {
-    color: var(--third);
-    /* var(--third); */
-    font-size: 1.25rem;
+/* Text block */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 2.5rem 2rem clamp(2rem, 5vw, 4rem);
+  width: 420px;
+  flex-shrink: 0;
 }
 
-.project-description {
-    color: var(--fourth);
-    /* var(--fourth); */
-    padding: 10px;
+/* Tree block — fixed size canvas */
+.hero-tree {
+  position: relative;
+  z-index: 1;
+  width: 580px;
+  height: 680px;
+  flex-shrink: 0;
+  margin-left: -120px;   /* overlap content so branches peek behind text */
+  contain: layout style paint;   /* isolate repaints from the scroll layer */
 }
 
-.thumbnail {
-    overflow: hidden;
-    width: 280px;
-    height: 200px;
-    border-bottom: 2px var(--borders) solid;
+#tree-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  will-change: transform;   /* own compositor layer — repaints don't affect page scroll */
 }
 
-.tech > * {
-    margin: 3px auto;
-    font-weight: 500;
+.hero-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
 }
 
-.tech-title {
-    color:  var(--third); 
-    /* background-color: black;
-    padding-left: 10px;
-    padding-right: 10px; */
+.hero-content h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  font-weight: 200;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 1.2rem;
 }
 
-p.contact-info {
-    margin-left: 30px;
-}
-#tile-insertion-point {
-    margin: 20px;
-}
-
-.golden-ratio{
-    width: 200px;
-    height: 320px;
-   
-    margin: 2px auto;
-    background-color: black;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative
+.hero-sub {
+  font-size: 1rem;
+  color: var(--text);
+  max-width: 420px;
+  margin-bottom: 2.5rem;
 }
 
-.blk {
-    color: black;
-    font-weight: 900;
+.hero-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+
+
+/* ── Buttons — glassy frosted style ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Sections ── */
+section {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 7rem 2.5rem;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+
+/* ── Project grid ── */
+.project-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Project card ── */
+.project-card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(4, 5, 8, 0.92);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.project-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0a0d14;
+}
+
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  filter: brightness(0.82) saturate(0.85);
+  transition: transform 0.4s ease, filter 0.3s;
+}
+
+.project-card:hover .project-thumb img {
+  transform: scale(1.03);
+  filter: brightness(0.65) saturate(0.75);
+}
+
+.thumb-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.project-card:hover .thumb-overlay { opacity: 1; }
+
+.thumb-play {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3px;
+  background: rgba(7, 9, 14, 0.55);
+  backdrop-filter: blur(4px);
+  transition: transform 0.15s;
+}
+
+.thumb-play:hover { transform: scale(1.1); }
+
+.project-body { padding: 1.2rem 1.6rem 1.4rem; }
+
+.project-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
+}
+
+.project-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.project-card h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+}
+
+.project-tag {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-bottom: 0.65rem;
+  display: block;
+}
+
+.project-note {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.project-desc {
+  color: var(--text);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.project-link {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.project-link:hover {
+  border-color: var(--accent);
+  color: var(--accent-light);
+}
+
+.arrow { transition: transform 0.15s; }
+.project-link:hover .arrow { transform: translate(2px, -2px); }
+
+/* ── Skills — terminal rows ── */
+.skills-terminal {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(4, 5, 8, 0.92);
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.1rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.skill-row:last-child { border-bottom: none; }
+.skill-row:hover { background: rgba(50, 130, 184, 0.04); }
+
+.skill-cat {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--accent-dim);
+  min-width: 138px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.prompt {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.22rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 0.875rem;
+  color: var(--text);
+  font-family: var(--mono);
+  background: rgba(255, 255, 255, 0.03);
+  letter-spacing: 0.01em;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.skill-row:hover .chip {
+  border-color: rgba(50, 130, 184, 0.35);
+}
+
+/* ── Footer ── */
+footer {
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+footer a {
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+footer a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── Mobile ── */
+@media (max-width: 680px) {
+  .hero-inner { flex-direction: column; align-items: center; padding: 3rem 1.5rem 0; }
+  .hero-content { width: 100%; padding: 0 0 0.5rem; }
+  .hero-tree {
+    width: 100%;
+    height: 480px;
+    margin-left: 0;
+    flex-shrink: 0;
+  }
+
+  .hero-content h1 { font-size: 2.6rem; }
+
+  section { padding: 4rem 1.5rem; }
+
+  .project-body { padding: 1rem 1.25rem 1.25rem; }
+
+  .skill-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .skill-cat { min-width: unset; }
 }
