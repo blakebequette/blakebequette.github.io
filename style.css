@@ -59,7 +59,7 @@ body::before {
   background-size: 100vw auto;   /* scale to full viewport width, proportional height */
   background-repeat: repeat-y;
   background-position-x: 0;
-  animation: topo-scroll 800s linear infinite;
+  animation: topo-scroll 400s linear infinite;
   pointer-events: none;
   z-index: -2;
 }
@@ -124,15 +124,15 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 
-/* Tree block — fixed size canvas */
+/* Tree block — generously sized so branches never get chopped */
 .hero-tree {
   position: relative;
   z-index: 1;
-  width: 580px;
-  height: 680px;
+  width: clamp(480px, 50vw, 760px);
+  height: clamp(560px, 70vh, 820px);
   flex-shrink: 0;
-  margin-left: -120px;   /* overlap content so branches peek behind text */
-  contain: layout style paint;   /* isolate repaints from the scroll layer */
+  margin-left: -140px;   /* overlap content so branches peek behind text */
+  contain: layout style;  /* no 'paint' — that was clipping the branches */
 }
 
 #tree-canvas {
@@ -458,7 +458,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
   .hero-content { width: 100%; padding: 0 0 0.5rem; }
   .hero-tree {
     width: 100%;
-    height: 480px;
+    height: 300px;
     margin-left: 0;
     flex-shrink: 0;
   }

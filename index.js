@@ -103,7 +103,8 @@
    */
   function generate() {
     branches = [];
-    const trunkLen = canvas.height * 0.20;
+    /* On short canvases (mobile) use a taller trunk so the tree fills the space */
+    const trunkLen = canvas.height * (canvas.height < 400 ? 0.32 : 0.20);
 
     /* Pass 1 — geometry + cumulative distance from root */
     function add(x1, y1, z1, dir, len, depth, distSoFar) {
