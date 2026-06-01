@@ -7,16 +7,29 @@
   /* ── Config ── */
   const MAX_DEPTH = 7;
   const GROW_SECS = 5.5;
-  const HOLD_SECS = 4;
+  const HOLD_SECS = 1.5;  /* pause after full growth before seed drops */
   const FADE_SECS = 0.9;
   const FOV       = 680;
-  const AUTO_ROT  = 0.0016; /* slow ambient drift */
+  const AUTO_ROT     = 0.0016; /* slow ambient drift */
+  const PLANTED_SECS = 1.2;   /* pause after seed lands before next tree sprouts */
 
-  /* ── State ── */
-  let branches = [], maxT = 1;
-  let phase = 'growing', progress = 0, holdTimer = 0, alpha = 1;
+  /* ── State machine ────────────────────────────────────────────────────────
+   *  growing  alpha 0→1, progress 0→1
+   *  holding  alpha=1; pause then seed falls
+   *  fading   alpha 1→0; seed sits on ground
+   *  planted  alpha=0; brief pause before next cycle
+   * ─────────────────────────────────────────────────────────────────────── */
+  let branches = [];
+  let phase    = 'growing';
+  let progress = 0;
+  let alpha    = 0;
+  let holdTimer    = 0;
+  let plantedTimer = 0;
   let rotY = 0, lastTs = null, prevScrollY = window.scrollY;
   let treeX = 0, treeY = 0;
+  let homeTrunkX = 0;
+  let seed       = null;      /* { x, y, startY, vx, vy } */
+  let nextTrunkX = null;
 
   /* ── Theme colors (navy default) — white branches, blue buds ── */
   let TC = { trunk: [0xe8, 0xe8, 0xea], tip: [0x32, 0x82, 0xb8] };
@@ -45,7 +58,8 @@
     canvas.height = Math.max(1, Math.round(rect.height));
     /* On narrow screens centre the trunk; on wide screens offset right so
      * branches can peek behind the text block on the left.               */
-    treeX = canvas.width < 500 ? canvas.width * 0.50 : canvas.width * 0.58;
+    homeTrunkX = canvas.width < 500 ? canvas.width * 0.50 : canvas.width * 0.58;
+    treeX = homeTrunkX;
     treeY = canvas.height;
   }
 
@@ -101,7 +115,27 @@
    * sweeps at constant speed through the actual 3D geometry.
    * No level-based steps, no delays — truly continuous.
    */
+  /* Pick a random tip branch from the upper half of the canopy, drop seed from there */
+  function spawnSeed() {
+    const midScreen = treeY * 0.55;   /* only tips above this y qualify */
+    const tips = branches
+      .filter(b => b.depth === 0)
+      .map(b  => ({ b, p: project(b.x2, b.y2, b.z2) }))
+      .filter(({ p }) => p.sy < midScreen);  /* upper portion only */
+
+    const pick = tips.length
+      ? tips[Math.floor(Math.random() * tips.length)].p
+      : { sx: treeX, sy: treeY * 0.3 };
+
+    seed = { x: pick.sx, y: pick.sy, startY: pick.sy, vx: (Math.random() - 0.5) * 20, vy: -8 };
+  }
+
   function generate() {
+    /* If a seed landed, grow the next tree from that spot */
+    if (nextTrunkX !== null) {
+      treeX = Math.max(80, Math.min(canvas.width - 80, nextTrunkX));
+      nextTrunkX = null;
+    }
     branches = [];
     /* On short canvases (mobile) use a taller trunk so the tree fills the space */
     const trunkLen = canvas.height * (canvas.height < 400 ? 0.32 : 0.20);
@@ -134,7 +168,6 @@
       b.tStart /= maxDist;
       b.tEnd   /= maxDist;
     }
-    maxT = 1;
   }
 
   /* ── Y-axis rotation + perspective projection ──
@@ -172,11 +205,9 @@
     ctx.save();
     ctx.globalAlpha = alpha;
 
-    const t = progress * maxT;
-
     for (const b of branches) {
-      if (b.tStart >= t) continue;
-      const p  = Math.min(1, (t - b.tStart) / (b.tEnd - b.tStart));
+      if (b.tStart >= progress) continue;
+      const p  = Math.min(1, (progress - b.tStart) / (b.tEnd - b.tStart));
       const p1 = project(b.x1, b.y1, b.z1);
       const p2 = project(lerp(b.x1, b.x2, p), lerp(b.y1, b.y2, p), lerp(b.z1, b.z2, p));
 
@@ -198,7 +229,33 @@
     }
 
     ctx.restore();
-  }
+
+    /* ── Seed / acorn ── */
+    if (seed) {
+      const isLanded = seed.y >= treeY - 1;
+
+      /* During growing phase, fade seed out as the new tree emerges (progress 0 → 0.3) */
+      let seedAlpha = 1.0;
+      if (phase === 'growing') {
+        seedAlpha = Math.max(0, 1 - progress / 0.3);
+        if (seedAlpha <= 0) { seed = null; }
+      }
+
+      if (seed) {
+      ctx.save();
+      ctx.globalAlpha = seedAlpha;
+
+      const fallT = isLanded ? 1 : Math.max(0, (seed.y - seed.startY) / Math.max(1, treeY - seed.startY));
+      const seedR = isLanded ? 2.5 : 1.8 + fallT * 2.2;
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath();
+      ctx.arc(seed.x, seed.y - (isLanded ? 2 : 0), seedR, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+      } /* end inner if (seed) */
+    }
+  } /* end draw() */
 
   /* ── Visibility — skip work when canvas is off-screen ── */
   let visible = true;
@@ -206,8 +263,11 @@
     visible = entries[0].isIntersecting;
   }, { threshold: 0 }).observe(canvas.parentElement);
 
-  /* ── Animation loop ── */
-  let prevRotY = 0;
+  /* ── Animation loop ──────────────────────────────────────────────────────
+   * growing → holding (pause, then seed falls while tree visible)
+   *         → fading (seed on ground, tree dissolves)
+   *         → planted (brief pause) → growing …
+   * ─────────────────────────────────────────────────────────────────────── */
   function animate(ts) {
     requestAnimationFrame(animate);
     if (!visible) return;
@@ -215,27 +275,62 @@
     const dt = Math.min((ts - lastTs) / 1000, 0.05);
     lastTs = ts;
 
-    const curScroll = window.scrollY;
+    const curScroll  = window.scrollY;
     const scrollDelta = curScroll - prevScrollY;
     rotY += scrollDelta * 0.003 + AUTO_ROT;
     prevScrollY = curScroll;
 
     if (phase === 'growing') {
-      progress += dt / GROW_SECS;
-      if (progress >= 1) { progress = 1; phase = 'holding'; holdTimer = 0; }
+      /* ── alpha: 0 → 1, progress: 0 → 1 ── */
+      alpha    = Math.min(1, alpha + dt / 0.6);
+      progress = Math.min(1, progress + dt / GROW_SECS);
+      if (progress >= 1) {
+        alpha = 1;
+        phase = 'holding';
+        holdTimer = 0;
+      }
+
     } else if (phase === 'holding') {
-      holdTimer += dt;
-      if (holdTimer >= HOLD_SECS) phase = 'fading';
-      /* Skip redraw during hold unless the user scrolled (visible rotation change) */
-      if (Math.abs(scrollDelta) < 1 && Math.abs(rotY - prevRotY) < 0.003) return;
-    } else {
-      alpha -= dt / FADE_SECS;
+      /* ── alpha stays 1; brief pause, then seed falls ── */
+      if (!seed) {
+        holdTimer += dt;
+        if (holdTimer >= HOLD_SECS) spawnSeed();
+      } else {
+        seed.vy += 140 * dt;
+        const hPull  = (homeTrunkX - seed.x) * 1.8;
+        const hNoise = (Math.random() - 0.5) * 60;
+        seed.vx += (hPull + hNoise) * dt;
+        seed.vx  *= 0.94;
+        seed.x   += seed.vx * dt;
+        seed.y   += seed.vy * dt;
+
+        if (seed.y >= treeY) {
+          seed.y     = treeY;
+          nextTrunkX = seed.x;
+          phase      = 'fading';
+        }
+      }
+
+    } else if (phase === 'fading') {
+      /* ── alpha: 1 → 0; seed sits on the ground ── */
+      alpha = Math.max(0, alpha - dt / FADE_SECS);
       if (alpha <= 0) {
-        alpha = 1; progress = 0; phase = 'growing';
+        alpha        = 0;
+        plantedTimer = 0;
+        phase        = 'planted';
+      }
+
+    } else if (phase === 'planted') {
+      /* ── alpha stays 0; seed rests briefly ── */
+      plantedTimer += dt;
+      if (plantedTimer >= PLANTED_SECS) {
+        progress = 0;
+        alpha    = 0;
         generate();
+        phase = 'growing';
+        /* seed intentionally kept alive — draw() fades it as the tree grows in */
       }
     }
-    prevRotY = rotY;
 
     draw();
   }
@@ -243,8 +338,6 @@
   /* ── Init ── */
   buildColorCache();
 
-  /* Defer resize + generate until after the first browser paint so
-   * getBoundingClientRect() reflects the real laid-out dimensions. */
   requestAnimationFrame(() => {
     resize();
     generate();
@@ -252,7 +345,14 @@
   });
 
   new ResizeObserver(() => {
-    resize(); generate();
-    progress = 0; phase = 'growing'; alpha = 1;
+    resize();
+    generate();
+    /* Only reset when in a stable state; let active transitions finish. */
+    if (phase === 'growing' || phase === 'holding') {
+      seed     = null;
+      progress = 0;
+      alpha    = 0;
+      phase    = 'growing';
+    }
   }).observe(canvas.parentElement);
 })();
