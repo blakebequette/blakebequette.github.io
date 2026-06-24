@@ -135,6 +135,37 @@ a { color: inherit; text-decoration: none; }
   will-change: transform;   /* own compositor layer — repaints don't affect page scroll */
 }
 
+/* ── Hero name row (avatar + label/h1 side by side) ── */
+.hero-name-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero-name-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-name-row h1 {
+  margin: 0;
+}
+
+.hero-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 15%;
+  transform: scale(1.12);
+  overflow: hidden;
+  filter: grayscale(100%) brightness(0.75);
+  border: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
 .hero-label {
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -142,7 +173,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 1rem;
+  margin-top: 0.4rem;
 }
 
 .hero-content h1 {
@@ -151,7 +182,7 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.0;
   letter-spacing: -0.01em;
   color: var(--text);
-  margin: 0 0 1.2rem -0.06em; /* -0.06em optical correction for glyph left-bearing */
+  margin: 0 0 0 -0.06em; /* -0.06em optical correction for glyph left-bearing */
 }
 
 .hero-sub {
@@ -440,7 +471,37 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
     flex-shrink: 0;
   }
 
+  /* Stack avatar above name+label, center everything */
+  .hero-name-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.9rem;
+  }
+
+  .hero-name-text {
+    align-items: center;
+  }
+
+  .hero-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
   .hero-content h1 { font-size: 2.6rem; }
+
+  .hero-sub {
+    text-align: center;
+  }
+
+  .hero-links {
+    justify-content: center;
+  }
+
+  .btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
 
   section { padding: 4rem 1.5rem; }
 
